@@ -5,16 +5,12 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from datetime import datetime
 import io
-import json
 import os
-from dotenv import load_dotenv
+import json
 
 app = Flask(__name__, template_folder='public')
 
-# Load environment variables from .env file
-load_dotenv()
-
-# Initialize Firebase Admin SDK
+# Initialize Firebase Admin SDK using environment variables
 cred = credentials.Certificate({
     "type": os.getenv('FIREBASE_TYPE'),
     "project_id": os.getenv('FIREBASE_PROJECT_ID'),
@@ -25,11 +21,11 @@ cred = credentials.Certificate({
     "auth_uri": os.getenv('FIREBASE_AUTH_URI'),
     "token_uri": os.getenv('FIREBASE_TOKEN_URI'),
     "auth_provider_x509_cert_url": os.getenv('FIREBASE_AUTH_PROVIDER_X509_CERT_URL'),
-    "client_x509_cert_url": os.getenv('FIREBASE_CLIENT_X509_CERT_URL')
+    "client_x509_cert_url": os.getenv('FIREBASE_CLIENT_X509_CERT_URL'),
+    "universe_domain": os.getenv('FIREBASE_UNIVERSE_DOMAIN')
 })
-
 firebase_admin.initialize_app(cred, {
-    'databaseURL': os.getenv('https://esp32-hp-36242-default-rtdb.asia-southeast1.firebasedatabase.app/')
+    'databaseURL': os.getenv('FIREBASE_DATABASE_URL')
 })
 
 # Reference to your database
